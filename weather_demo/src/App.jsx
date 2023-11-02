@@ -14,7 +14,7 @@ function App() {
 
   const handleSearch = () => {
     if (query) {
-      axios.get(`http://localhost:8080/api-data?search=${query}`)
+      axios.get(`https://weather-app-972u.onrender.com/api-data?search=${query}`)
         .then((response) => {
           setWeatherData(response.data);
         })
