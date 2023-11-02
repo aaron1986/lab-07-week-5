@@ -52,6 +52,7 @@ function App() {
   };
 
   const handleReset = () => {
+    setWeatherData('');
     setQuery('');
     setLocationData('');
     setLat(null);
