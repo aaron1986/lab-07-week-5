@@ -12,7 +12,7 @@ function App() {
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [title, setTitle] = useState("");
-  const [splooshData, setSplooshData] = useState(""); // State variable for sploosh API data
+  const [splooshData, setSplooshData] = useState("");
 
   const handleSearch = () => {
     if (query) {
@@ -25,7 +25,7 @@ function App() {
         });
 
       getData();
-      getSplooshData(); // Add this line to fetch sploosh API data
+      getSplooshData();
     }
   }
 
@@ -95,7 +95,7 @@ function App() {
           <p>Temperature: {weatherData.temperature} K</p>
           <p>Description: {weatherData.description}</p>
           <p>Humidity: {weatherData.humidity}%</p>
-          <p>Image: {weatherData.image}</p>
+          <p>Title: {weatherData.image}</p>
         </div>
       ) : null}
 
@@ -104,20 +104,6 @@ function App() {
         {locationData ? <h2>{locationData}</h2> : null}
         {lat && lon && <Map lat={lat} lon={lon} />}
       </div>
-
-      {title && (
-        <div id="imdb-section">
-          <h1>IMDB Title</h1>
-          <p>{title}</p>
-        </div>
-      )}
-
-      {splooshData && (
-        <div id="sploosh-section">
-          <h1>Sploosh Data</h1>
-          <p>{splooshData}</p>
-        </div>
-      )}
 
       <div id="button-container">
         <button id="reset" onClick={handleReset}>Reset</button>
