@@ -11,6 +11,8 @@ function App() {
   const [locationData, setLocationData] = useState('');
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
+  const [title, setTitle] = useState("");
+  const [splooshData, setSplooshData] = useState(""); // State variable for sploosh API data
 
   const handleSearch = () => {
     if (query) {
@@ -23,8 +25,9 @@ function App() {
         });
 
       getData();
+      getSplooshData(); // Add this line to fetch sploosh API data
     }
-  };
+  }
 
   const getData = () => {
     if (query) {
@@ -47,6 +50,18 @@ function App() {
     }
   };
 
+  const getSplooshData = () => {
+    if (query) {
+      axios.get(`https://weather-app-972u.onrender.com/sploosh-data?search=${query}`)
+        .then(response => {
+          setSplooshData(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching sploosh data:', error);
+        });
+    }
+  }
+
   const handleQueryChange = event => {
     setQuery(event.target.value);
   };
@@ -57,7 +72,9 @@ function App() {
     setLocationData('');
     setLat(null);
     setLon(null);
-  };
+    setTitle('');
+    setSplooshData('');
+  }
 
   return (
     <div className="App">
@@ -78,6 +95,7 @@ function App() {
           <p>Temperature: {weatherData.temperature} K</p>
           <p>Description: {weatherData.description}</p>
           <p>Humidity: {weatherData.humidity}%</p>
+          <p>Image: {weatherData.image}</p>
         </div>
       ) : null}
 
@@ -87,9 +105,23 @@ function App() {
         {lat && lon && <Map lat={lat} lon={lon} />}
       </div>
 
+      {title && (
+        <div id="imdb-section">
+          <h1>IMDB Title</h1>
+          <p>{title}</p>
+        </div>
+      )}
+
+      {splooshData && (
+        <div id="sploosh-section">
+          <h1>Sploosh Data</h1>
+          <p>{splooshData}</p>
+        </div>
+      )}
+
       <div id="button-container">
-<button id="reset" onClick={handleReset}>Reset</button>
-</div>
+        <button id="reset" onClick={handleReset}>Reset</button>
+      </div>
     </div>
   );
 }

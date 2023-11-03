@@ -12,10 +12,24 @@ app.get("/api-data", async (request, response) => {
       const search = request.query.search;
       const weatherAPI = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=d4f0a78dda6dc24e04bb2529264ab939`);
       
+        const sploosh_api = {
+          method: 'GET',
+          url: 'https://imdb188.p.rapidapi.com/api/v1/searchIMDB',
+          params: { query: `${search}` },
+          headers: {
+            'X-RapidAPI-Key': 'b02a747d18mshe2d139c32d81ce8p1674edjsnd1557879389b',
+            'X-RapidAPI-Host': 'imdb188.p.rapidapi.com'
+          }
+        };
+  
+        //retrieve data
+        const answer = await axios(sploosh_api);
+
       const weatherData = {
         temperature: weatherAPI.data.main.temp,
         description: weatherAPI.data.weather[0].description,
         humidity: weatherAPI.data.main.humidity,
+        image: answer.data.data[0].title, 
       };
       
       response.json(weatherData);
