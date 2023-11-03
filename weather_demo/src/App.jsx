@@ -95,10 +95,12 @@ function App() {
           <p>Temperature: {weatherData.temperature} K</p>
           <p>Description: {weatherData.description}</p>
           <p>Humidity: {weatherData.humidity}%</p>
+          <h1>Movie Title</h1>
           <p>Title: {weatherData.image}</p>
         </div>
       ) : null}
 
+  
       <div>
         <h1>Location Data</h1>
         {locationData ? <h2>{locationData}</h2> : null}
